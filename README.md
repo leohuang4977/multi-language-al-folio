@@ -331,13 +331,40 @@ In its default configuration, al-folio will copy the top-level `README.md` to th
 
 #### Upgrading from a previous version
 
-If you installed **al-folio** as described above, you can upgrade to the latest version as follows:
+If you installed **al-folio** as described above, you can configure a [github action](https://github.com/AndreasAugustin/actions-template-sync) to automatically sync your repository with the latest version of the theme:
+
+```yaml
+name: Sync from template
+on:
+    # cronjob trigger
+  schedule:
+  - cron:  "0 0 1 * *"
+  # manual trigger
+  workflow_dispatch:
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v0.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_repo_path: alshedivat/al-folio
+          upstream_branch: master
+```
+
+You will receive a pull request within your repository if there are some changes available in the template.
+
+Another option is to manually update your code by following the steps below:
 
 ```bash
 # Assuming the current directory is <your-repo-name>
 $ git remote add upstream https://github.com/george-gca/multi-language-al-folio.git
 $ git fetch upstream
-$ git rebase v0.3.5
+$ git rebase v0.8.0
 ```
 
 If you have extensively customized a previous version, it might be trickier to upgrade.
@@ -502,7 +529,8 @@ Easily create beautiful grids within your blog posts and project pages:
 ### Other features
 
 #### GitHub repositories and user stats
-**al-folio** uses [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) to display GitHub repositories and user stats on the the `/repositories/` page.
+**al-folio** uses [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) and [github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
+to display GitHub repositories and user stats on the the `/repositories/` page.
 
 Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories to the the `/repositories/` page.
 
@@ -515,6 +543,18 @@ You may also use the following codes for displaying this in any other pages.
     {% include repository/repo_user.html username=user %}
   {% endfor %}
 </div>
+{% endif %}
+
+<!-- code for Github trophies -->
+{% if site.repo_trophies.enabled %}
+{% for user in site.data.repositories.github_users %}
+  {% if site.data.repositories.github_users.size > 1 %}
+  <h4>{{ user }}</h4>
+  {% endif %}
+  <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center">
+  {% include repository/repo_trophies.html username=user %}
+  </div>
+{% endfor %}
 {% endif %}
 
 <!-- code for GitHub repositories -->
