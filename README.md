@@ -104,6 +104,7 @@ Feel free to add your own page(s) by sending a PR.
 <a href="https://vdivakar.github.io/" target="_blank">★</a>
 <a href="https://george-gca.github.io/" target="_blank">★</a>
 <a href="https://bashirkazimi.github.io/" target="_blank">★</a>
+<a href="https://dohaison.github.io/" target="_blank">★</a>
 </td>
 </tr>
 <tr>
@@ -273,11 +274,7 @@ Starting version [v0.3.5](https://github.com/alshedivat/al-folio/releases/tag/v0
 
 <details><summary>(click to expand) <strong>Manual deployment to GitHub Pages:</strong></summary>
 
-If you need to manually re-deploy your website to GitHub pages, run the deploy script from the root directory of your repository:
-```bash
-$ ./bin/deploy
-```
-uses the `master` branch for the source code and deploys the webpage to `gh-pages`.
+If you need to manually re-deploy your website to GitHub pages, go to Actions, click "Deploy" in the left sidebar, then "Run workflow."
 
 </details>
 
@@ -407,6 +404,15 @@ If you have a different question, please ask using [Discussions](https://github.
   RSS Feed plugin works with these correctly set up fields: `title`, `url`, `description` and `author`.
   Make sure to fill them in an appropriate way and try again.
 
+5. **Q:** My site doesn't work when I enable `related_blog_posts`. Why? <br>
+   **A:** This is probably due to the [classifier reborn](https://github.com/jekyll/classifier-reborn) plugin, which is used to calculate
+   related posts. If the error states `Liquid Exception: Zero vectors can not be normalized...`, it means that it could not calculate related
+   posts for a specific post. This is usually caused by [empty or really small blog posts](https://github.com/jekyll/classifier-reborn/issues/64)
+   without meaningful words (i.e. only [stop words](https://en.wikipedia.org/wiki/Stop_words)) or even 
+   [specific characters](https://github.com/jekyll/classifier-reborn/issues/194) you used in your posts. Also, the calculus for similar posts are
+   made for every `post`, which means every page that uses `layout: post`, including the announcements. To change this behavior, simply add
+   `related_posts: false` to the front matter of the page you don't want to display related posts on.
+   
 
 ## Features
 
