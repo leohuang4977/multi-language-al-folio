@@ -2,13 +2,10 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
 first_name: You
 middle_name: R.
 last_name: Name
 email: you@example.com
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
@@ -18,10 +15,31 @@ keywords: jekyll, jekyll-theme, academic-website, portfolio-website  # add your 
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️  # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
-url: https://alshedivat.github.io # the base hostname & protocol for your site
 baseurl: /al-folio # the subpath of your site, e.g. /blog/
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path:  # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
+
+# -----------------------------------------------------------------------------
+# Jekyll SEO Tag settings
+# For more options, see https://jekyll.github.io/jekyll-seo-tag/usage/
+# -----------------------------------------------------------------------------
+author:
+    name: You R. Name
+    url: https://alshedivat.github.io
+description: > # the ">" symbol means to ignore newlines until "footer_text:"
+  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+locale: en_US # the language locale used in your meta tags (default: en_US)
+tagline: > # will appear in the <meta name="description" content="..."> of your home page
+  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+title: You R. Name # the website title
+url: https://alshedivat.github.io # the base hostname & protocol for your site
+# webmaster_verifications:
+#   google: 1234
+#   bing: 1234
+#   alexa: 1234
+#   yandex: 1234
+#   baidu: 1234
+#   facebook: 1234
 
 # -----------------------------------------------------------------------------
 # Theme
@@ -114,9 +132,6 @@ contact_note: >
 
 google_analytics:  # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
 cronitor_analytics:  # cronitor RUM analytics site ID (format: XXXXXXXXX)
-
-google_site_verification:  # your google-site-verification ID (Google Search Console)
-bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 
 # -----------------------------------------------------------------------------
 # Blog
@@ -228,6 +243,7 @@ plugins:
   - jekyll-minifier
   - jekyll-paginate-v2
   - jekyll/scholar
+  - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-toc
   - jekyll-twitter-plugin
@@ -357,8 +373,6 @@ jekyll-diagrams:
 
 enable_google_analytics:    false  # enables google analytics
 enable_cronitor_analytics: false  # enables cronitor RUM analytics
-enable_google_verification: false  # enables google site verification
-enable_bing_verification:   false  # enables bing site verification
 enable_masonry:             true   # enables automatic project cards arrangement
 enable_math:                true   # enables math typesetting (uses MathJax)
 enable_tooltips:            false  # enables automatic tooltip links generated

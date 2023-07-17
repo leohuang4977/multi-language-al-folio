@@ -237,6 +237,7 @@ $ docker-compose -f docker-local.yml up
 #### Local Setup (Standard)
 
 Assuming you have [Ruby](https://www.ruby-lang.org/en/downloads/) and [Bundler](https://bundler.io/) installed on your system (*hint: for ease of managing ruby gems, consider using [rbenv](https://github.com/rbenv/rbenv)*).
+You should also have [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) installed to be able to display jupyter notebooks.
 
 ```bash
 $ bundle install
@@ -617,9 +618,9 @@ To enable this functionality you will need to set `serve_og_meta` to `true` in y
 Once you have done so, all your site's pages will include Open Graph data in the HTML head element.
 
 You will then need to configure what image to display in your site's social media previews.
-This can be configured on a per-page basis, by setting the `og_image` page variable.
-If for an individual page this variable is not set, then the theme will fall back to a site-wide `og_image` variable, configurable in your `_config.yml`.
-In both the page-specific and site-wide cases, the `og_image` variable needs to hold the URL for the image you wish to display in social media previews.
+This can be configured on a per-page basis, by setting the `image` page variable.
+If for an individual page this variable is not set, then the theme will fall back to a site-wide `image` variable, configurable in your `_config.yml`.
+In both the page-specific and site-wide cases, the `image` variable needs to hold the URL for the image you wish to display in social media previews.
 
 #### Atom (RSS-like) Feed
 
