@@ -12,33 +12,12 @@ let setTheme = (theme) => {
   transTheme();
   setHighlight(theme);
   setGiscusTheme(theme);
+  setJupyterTheme(theme);
+  setTablesTheme(theme);
+  setMermaidTheme(theme);
 
   if (theme) {
     document.documentElement.setAttribute("data-theme", theme);
-
-    // Add class to tables.
-    let tables = document.getElementsByTagName("table");
-    for (let i = 0; i < tables.length; i++) {
-      if (theme == "dark") {
-        tables[i].classList.add("table-dark");
-      } else {
-        tables[i].classList.remove("table-dark");
-      }
-    }
-
-    // Set jupyter notebooks themes.
-    let jupyterNotebooks = document.getElementsByClassName("jupyter-notebook-iframe-container");
-    for (let i = 0; i < jupyterNotebooks.length; i++) {
-      let bodyElement = jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow.document.body;
-      if (theme == "dark") {
-        bodyElement.setAttribute("data-jp-theme-light", "false");
-        bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Dark");
-      } else {
-        bodyElement.setAttribute("data-jp-theme-light", "true");
-        bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Light");
-      }
-    }
-
   } else {
     document.documentElement.removeAttribute("data-theme");
   }
@@ -53,6 +32,33 @@ let setTheme = (theme) => {
           "--global-bg-color"
         ) + "ee", // + 'ee' for trasparency.
     });
+  }
+};
+
+let setTablesTheme = (theme) => {
+  // Add class to tables.
+  let tables = document.getElementsByTagName("table");
+  for (let i = 0; i < tables.length; i++) {
+    if (theme == "dark") {
+      tables[i].classList.add("table-dark");
+    } else {
+      tables[i].classList.remove("table-dark");
+    }
+  }
+};
+
+let setJupyterTheme = (theme) => {
+  // Set jupyter notebooks themes.
+  let jupyterNotebooks = document.getElementsByClassName("jupyter-notebook-iframe-container");
+  for (let i = 0; i < jupyterNotebooks.length; i++) {
+    let bodyElement = jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow.document.body;
+    if (theme == "dark") {
+      bodyElement.setAttribute("data-jp-theme-light", "false");
+      bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Dark");
+    } else {
+      bodyElement.setAttribute("data-jp-theme-light", "true");
+      bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Light");
+    }
   }
 };
 
@@ -78,6 +84,22 @@ let setGiscusTheme = (theme) => {
       theme: theme,
     },
   });
+};
+
+let setMermaidTheme = (theme) => {
+  let expectedTheme = theme == "dark" ? 'dark' : 'default';
+  let config = { theme: expectedTheme };
+  let mermaidDiagrams = document.getElementsByClassName("mermaid");
+  for (let i = 0; i < mermaidDiagrams.length; i++) {
+    mermaidDiagrams[i].removeAttribute('data-processed');
+    mermaidDiagrams[i].initialize(config);
+    // mermaidDiagrams[i].init(undefined, '.mermaid');
+  }
+
+  // $('.mermaid').each(function() {
+  //   $(this).html(node.data.graph).removeAttr('data-processed');
+  //   mermaid.init(undefined, $(".mermaid"));
+  // });
 };
 
 let transTheme = () => {
