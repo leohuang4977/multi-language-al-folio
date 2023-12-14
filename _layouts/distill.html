@@ -77,7 +77,7 @@
       {%- endif -%}
 
       <d-article>
-        {% if page.toc -%}
+        <!-- {% if page.toc -%}
         <d-contents>
           <nav class="l-text figcaption">
           <h3>Contents</h3>
@@ -93,9 +93,39 @@
             {%- endfor %}
           </nav>
         </d-contents>
-        {%- endif %}
+        {%- endif %} -->
 
-        {{ content }}
+        {% if page.toc and page.toc.sidebar %}
+          {% if page.toc.sidebar == "right" %}
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">
+              {{ content }}
+            </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+          </div>
+          {% else %}
+          <!-- <div class="row"> -->
+            <!-- sidebar, which will move to the top on a small screen -->
+            <!-- <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div> -->
+            <!-- main content area -->
+            <!-- <div class="col-sm-9">
+              {{ content }}
+            </div>
+          </div> -->
+          <d-contents class="sticky-top">
+            <nav id="toc-sidebar" class="l-text figcaption"></nav>
+          </d-contents>
+          {{ content }}
+          {% endif %}
+        {% else %}
+          {{ content }}
+        {% endif %}
       </d-article>
 
       <d-appendix>
@@ -120,5 +150,10 @@
     {% include scripts/bootstrap.html %}
     {% include scripts/analytics.html %}
     {% include scripts/progressBar.html %}
+    {% if page.toc and page.toc.sidebar %}
+    <!-- Sidebar Table of Contents -->
+    <script defer src="{{ '/assets/js/bootstrap-toc.min.js' | relative_url | bust_file_cache }}"></script>
+    <script defer src="{{ '/assets/js/common.js' | relative_url | bust_file_cache }}"></script>
+    {% endif %}
   </body>
 </html>
